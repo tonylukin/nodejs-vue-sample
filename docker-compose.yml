@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    container_name: weather-app-db
+    restart: always
+    ports:
+      - "127.0.0.1:3317:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./docker/my.cnf:/etc/mysql/my.cnf
+      - ./docker/db:/docker-entrypoint-initdb.d
+    networks:
+      - default
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10M"
+        max-file: "1000"
+
+volumes:
+  db-data:
+
+networks:
+  default:
+    driver: bridge
