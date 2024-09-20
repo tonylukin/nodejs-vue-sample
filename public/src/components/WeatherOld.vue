@@ -38,7 +38,7 @@ export default {
   methods: {
     getWeather: async function (e) {
       const response = await axios.post('http://localhost:3001/city', {
-        city_name: e.target.value,
+        name: e.target.value,
       });
       if (response.status !== 200) {
         // error

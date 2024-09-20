@@ -9,23 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.City = void 0;
+exports.User = void 0;
 const typeorm_1 = require("typeorm");
-let City = class City {
+let User = class User {
 };
-exports.City = City;
+exports.User = User;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], City.prototype, "id", void 0);
+], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)({ type: 'varchar', nullable: false }),
     __metadata("design:type", String)
-], City.prototype, "name", void 0);
+], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamp' }),
+    (0, typeorm_1.Column)({ type: 'varchar', unique: true, nullable: false }),
+    __metadata("design:type", String)
+], User.prototype, "username", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'request_limit', type: 'int', nullable: true }),
+    __metadata("design:type", Number)
+], User.prototype, "requestLimit", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
-], City.prototype, "createdAt", void 0);
-exports.City = City = __decorate([
-    (0, typeorm_1.Entity)({ name: 'cities', schema: 'app' })
-], City);
+], User.prototype, "created_at", void 0);
+exports.User = User = __decorate([
+    (0, typeorm_1.Entity)({ name: 'users', schema: 'app' })
+], User);

@@ -1,5 +1,5 @@
 const https = require('https');
-const City = require('../models/City');
+const City = require('../models/sequelize/City');
 
 class WeatherManager {
     static fetchWeatherInfoByCityId(cityId) {
@@ -10,7 +10,7 @@ class WeatherManager {
                         reject('City not found');
                         return;
                     }
-                    https.get(`https://api.openweathermap.org/data/2.5/weather?q=${city.city_name}&appid=455b229f09ae12e2c4dfbd2eec62ecf8`, (res) => {
+                    https.get(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=455b229f09ae12e2c4dfbd2eec62ecf8`, (res) => {
                         if (res.statusCode !== 200) {
                             reject(`Did not get an OK from the server. Code: ${res.statusCode}`)
                             res.resume();

@@ -26,14 +26,14 @@ onMounted(async () => {
     return;
   }
   response.data.cities.map(city => cities.value.push({
-    id: city.city_id,
-    name: city.city_name,
+    id: city.id,
+    name: city.name,
   }));
 });
 
 const getWeather = async function (e) {
   const response = await axios.post('http://localhost:3001/city', {
-    city_name: e.target.value,
+    name: e.target.value,
   });
   if (response.status !== 200) {
     // error

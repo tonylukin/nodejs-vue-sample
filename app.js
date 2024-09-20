@@ -1,11 +1,15 @@
+require('dotenv').config({
+    path: ['.env.local', '.env']
+});
 const createError = require('http-errors');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-const cityRouter = require('./routes/city');
+const authenticate = require('./middleware/auth');
+const rateLimiter = require('./middleware/ratelimiter');
+const routes = require('./routes');
 
 const app = express();
 
@@ -13,17 +17,16 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(rateLimiter);
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(authenticate);
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
-app.use('/city', cityRouter);
+routes.setup(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,7 +43,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(3001);
 
 module.exports = app;

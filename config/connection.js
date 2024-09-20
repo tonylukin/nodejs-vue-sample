@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
     dbConfig.password,
     {
         port: dbConfig.port,
-        dialect: 'mysql',
+        dialect: 'postgres',
     }
 );
 

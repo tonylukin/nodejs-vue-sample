@@ -1,8 +1,7 @@
-
 module.exports = {
-    dbName: 'weather_app',
-    user: 'root',
-    password: '123456',
-    port: 3317,
-    host: 'localhost',
+    dbName: process.env.DB_DATABASE,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    host: process.env.DB_HOST,
 }

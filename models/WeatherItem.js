@@ -9,23 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.City = void 0;
+exports.WeatherItem = void 0;
 const typeorm_1 = require("typeorm");
-let City = class City {
+const City_1 = require("./City");
+// todo city_id + created_at - make unique index
+let WeatherItem = class WeatherItem {
 };
-exports.City = City;
+exports.WeatherItem = WeatherItem;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], City.prototype, "id", void 0);
+], WeatherItem.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], City.prototype, "name", void 0);
+], WeatherItem.prototype, "weather", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamp' }),
     __metadata("design:type", Date)
-], City.prototype, "createdAt", void 0);
-exports.City = City = __decorate([
-    (0, typeorm_1.Entity)({ name: 'cities', schema: 'app' })
-], City);
+], WeatherItem.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => City_1.City, { eager: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'city_id' }),
+    __metadata("design:type", City_1.City)
+], WeatherItem.prototype, "city", void 0);
+exports.WeatherItem = WeatherItem = __decorate([
+    (0, typeorm_1.Entity)({ name: 'weather_items', schema: 'app' })
+], WeatherItem);

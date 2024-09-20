@@ -1,8 +1,8 @@
-const City = require('../models/City');
+const City = require('../models/sequelize/City');
 
 class CityManager {
     async create(cityName) {
-        return await City.findOrCreate({where: {city_name: cityName}});
+        return await City.findOrCreate({where: {name: cityName}});
     }
     async getList() {
         return await City.findAll();
